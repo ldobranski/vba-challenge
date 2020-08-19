@@ -55,28 +55,29 @@ Dim ws As Worksheet
             Yearly_Change = Closing_Value - Opening_Value
             'MsgBox (Opening_Value)
             'MsgBox (Closing_Value)
+
+        'Format cells as green for positive change; red for negative
+            If Yearly_Change > 0 Then
+                ws.Range("J" & Summary_Table_Row).Interior.ColorIndex = 4
+                
+                Else
+                ws.Range("J" & Summary_Table_Row).Interior.ColorIndex = 3
+                
+            End If
             
         'Calculate percent change and format columns with % sign
             If Opening_Value = 0 Then
                 Percent_Change = 0
                 
                 Else
-                Percent_Change = (Closing_Value - Opening_Value) / Closing_Value
+                Percent_Change = (Closing_Value - Opening_Value) / Opening_Value
                 ws.Columns("K").NumberFormat = "0.00%"
                 
             End If
         
         'Print percent change in the summary table
             ws.Range("K" & Summary_Table_Row).Value = Percent_Change
-            
-        'Format cell as green for positive change; red for negative
-            If Percent_Change > 0 Then
-                ws.Range("K" & Summary_Table_Row).Interior.ColorIndex = 4
-                
-                Else
-                ws.Range("K" & Summary_Table_Row).Interior.ColorIndex = 3
-                
-            End If
+       
         
         'Print the yearly change in Summary Table
             ws.Range("J" & Summary_Table_Row).Value = Yearly_Change
@@ -114,6 +115,6 @@ Dim ws As Worksheet
        
 Next ws
 
-	MsgBox ("moderate solution complete")
+    MsgBox ("moderate solution complete")
 
 End Sub
